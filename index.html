@@ -5,21 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Standby Clock</title>
     <style>
+        
+
+body::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
         body {
             margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #2c3e50, #4ca1af);
             color: #f8f9fa;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-            transition: background 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .clock {
             text-align: center;
+            margin-bottom: 50px;
         }
 
         .time {
@@ -41,7 +51,7 @@
 
         .theme-button,
         .fullscreen-button {
-            position: absolute;
+            position: fixed;
             padding: 10px 20px;
             background: #f8f9fa;
             color: #2c3e50;
@@ -76,6 +86,15 @@
             background: #ec7777;
         }
 
+        .ad-space {
+            background: #1e1e1e;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+        }
+
         @media (max-width: 768px) {
             .time {
                 font-size: 20vw;
@@ -89,9 +108,14 @@
 <body>
     <button class="theme-button" id="themeButton">Change Theme</button>
     <button class="fullscreen-button" id="fullscreenButton">Full Screen</button>
-    <div class="clock">
-        <div class="time" id="time"></div>
-        <div class="date" id="date"></div>
+    <div class="container">
+        <div class="clock">
+            <div class="time" id="time"></div>
+            <div class="date" id="date"></div>
+        </div>
+    </div>
+    <div class="ad-space">
+        Place your ad content here.
     </div>
 
     <script>
@@ -166,3 +190,5 @@
     </script>
 </body>
 </html>
+
+

@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Standby Clock</title>
     <style>
-        
-
-body::-webkit-scrollbar {
-    display: none; /* For Chrome, Safari, and Opera */
-}
-
+        body::-webkit-scrollbar {
+            display: none;
+        }
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -18,7 +15,6 @@ body::-webkit-scrollbar {
             color: #f8f9fa;
             overflow-x: hidden;
         }
-
         .container {
             min-height: 100vh;
             display: flex;
@@ -26,12 +22,10 @@ body::-webkit-scrollbar {
             align-items: center;
             justify-content: center;
         }
-
         .clock {
             text-align: center;
             margin-bottom: 50px;
         }
-
         .time {
             font-size: 15vw;
             font-weight: 600;
@@ -39,7 +33,6 @@ body::-webkit-scrollbar {
             color: #ffdd59;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-
         .date {
             font-size: 4vw;
             margin-top: 1rem;
@@ -48,60 +41,25 @@ body::-webkit-scrollbar {
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
             font-family: cursive;
         }
-
-        .theme-button,
-        .fullscreen-button {
-            position: fixed;
-            padding: 10px 20px;
-            background: #f8f9fa;
-            color: #2c3e50;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 13px;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            opacity: 1;
-            transition: opacity 0.5s;
+        .affiliate-link {
+            text-align: center;
+            margin: 20px 0;
         }
-
-        .theme-button {
-            top: 10px;
-            right: 10px;
+        .affiliate-link a {
+            font-size: 18px;
+            color: #ffdd59;
+            text-decoration: none;
+            font-weight: bold;
         }
-
-        .fullscreen-button {
-            top: 50px;
-            right: 10px;
+        .affiliate-link a:hover {
+            text-decoration: underline;
         }
-
-        .theme-button.hidden,
-        .fullscreen-button.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .theme-button:hover,
-        .fullscreen-button:hover {
-            background: #ec7777;
-        }
-
         .ad-space {
             background: #1e1e1e;
             color: #ffffff;
             text-align: center;
             padding: 20px;
             font-size: 18px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        @media (max-width: 768px) {
-            .time {
-                font-size: 20vw;
-            }
-            .date {
-                font-size: 5vw;
-            }
         }
     </style>
 </head>
@@ -114,81 +72,14 @@ body::-webkit-scrollbar {
             <div class="date" id="date"></div>
         </div>
     </div>
-    <div class="ad-space">
-        Place your ad content here.
+    <div class="affiliate-link">
+        <a href="https://amzn.to/4bSQZ5j" id="affiliateLink">Click here for amazing deals!</a>
     </div>
-
+    <div class="ad-space">
+        buy this cooler for this  summer 
+    </div>
     <script>
-        const themes = [
-            { background: '#000000', color: '#ffffff', timeColor: '#ffffff', dateColor: '#cccccc', font: 'Times New Roman' },
-            { background: 'linear-gradient(135deg, #ff7e5f, #feb47b)', color: '#1e1e1e', timeColor: '#ff6347', dateColor: '#ffe4c4', font: 'Lobster, cursive' },
-            { background: 'linear-gradient(135deg, #6a11cb, #2575fc)', color: '#ffffff', timeColor: '#00ffff', dateColor: '#f0f8ff', font: 'Courier New, monospace' },
-            { background: 'linear-gradient(135deg, #ff9a9e, #fad0c4)', color: '#2c3e50', timeColor: '#d7263d', dateColor: '#ffddc1', font: 'Georgia, serif' },
-            { background: 'linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b)', color: '#ffffff', timeColor: '#ffb3ff', dateColor: '#ffe5b4', font: 'Verdana, sans-serif' }
-        ];
-
-        let currentThemeIndex = 0;
-        let timeout;
-
-        const themeButton = document.getElementById('themeButton');
-        const fullscreenButton = document.getElementById('fullscreenButton');
-        const timeElement = document.getElementById('time');
-        const dateElement = document.getElementById('date');
-
-        document.body.addEventListener('mousemove', showButtons);
-        document.body.addEventListener('click', showButtons);
-
-        themeButton.addEventListener('click', () => {
-            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            const theme = themes[currentThemeIndex];
-            document.body.style.background = theme.background;
-            document.body.style.color = theme.color;
-            timeElement.style.color = theme.timeColor;
-            dateElement.style.color = theme.dateColor;
-            timeElement.style.fontFamily = theme.font;
-        });
-
-        fullscreenButton.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                document.exitFullscreen();
-            }
-        });
-
-        function showButtons() {
-            themeButton.classList.remove('hidden');
-            fullscreenButton.classList.remove('hidden');
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                themeButton.classList.add('hidden');
-                fullscreenButton.classList.add('hidden');
-            }, 5000);
-        }
-
-        function updateClock() {
-            const now = new Date();
-
-            // Format time: HH:MM:SS
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const timeString = `${hours}:${minutes}:${seconds}`;
-
-            // Format date: Weekday, Month Day, Year
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = now.toLocaleDateString(undefined, options);
-
-            timeElement.textContent = timeString;
-            dateElement.textContent = dateString;
-        }
-
-        // Update clock every second
-        setInterval(updateClock, 1000);
-        updateClock(); // Initialize immediately
-        showButtons(); // Show buttons initially
+        document.getElementById("affiliateLink").href = "https://amzn.to/4bSQZ5j";
     </script>
 </body>
 </html>
-
-
